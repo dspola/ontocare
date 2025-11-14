@@ -1,0 +1,2576 @@
+@prefix : <http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/> .
+
+<http://www.stiima.cnr.it/AgeIT-PNRR> rdf:type owl:Ontology ;
+                                       owl:imports <http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/> ,
+                                                   <http://www.stiima.cnr.it/Age-IT-PNRR/Health> ,
+                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv> ,
+                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999> ,
+                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/Person> ;
+                                       rdfs:comment """Common box of the AgeIt-PNRR ontology importing:
+- the Built Environment (BuiltEnv.ttl) TBox
+- the Health (Healht.ttl) TBox
+- the ISO9999:2022 (ISO9999.ttl) TBox
+- the Person (Person.ttl) TBox
+- the SAREF and SAREF4EHAW (saref.ttl) TBox
+
+and instantiating OWL individuals and SWRL rules.""" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/projectBelongsTo
+:projectBelongsTo rdf:type owl:ObjectProperty ;
+                  rdfs:domain <http://www.stiima.cnr.it/AgeIT-PNRR/#Project> ;
+                  rdfs:range <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/projectRenovates
+:projectRenovates rdf:type owl:ObjectProperty ;
+                  rdfs:domain <http://www.stiima.cnr.it/AgeIT-PNRR/#Project> ;
+                  rdfs:range <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> rdf:type owl:ObjectProperty ;
+                                                                   rdfs:domain <https://saref.etsi.org/core#Device> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#deviceSuggestedFor
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#deviceSuggestedFor> rdf:type owl:ObjectProperty ;
+                                                                owl:inverseOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#hasSuggestedDevice> ;
+                                                                rdfs:domain <http://www.https://saref.etsi.org/saref4ehaw/v1.1.1//HealthDevice> ;
+                                                                rdfs:range <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#hasSuggestedDevice
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#hasSuggestedDevice> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/adaptableDimensions
+:adaptableDimensions rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                     rdfs:domain <https://saref.etsi.org/core#Device> ;
+                     rdfs:range xsd:boolean ;
+                     owl:propertyDisjointWith <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> ,
+                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> ,
+                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> ;
+                     rdfs:comment "A simple property to define whether any physical entity has ADAPTABLE DIMENSIONS" .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/negligibleDimensions
+:negligibleDimensions rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                      rdfs:domain <https://saref.etsi.org/core#Device> ;
+                      rdfs:range xsd:boolean ;
+                      rdfs:comment "A simple property to define whether any physical entity has NEGLIGIBLE DIMENSIONS" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> rdf:type owl:DatatypeProperty ;
+                                                           rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                                                           rdfs:domain <https://saref.etsi.org/core#Device> ;
+                                                           rdfs:range xsd:decimal ;
+                                                           rdfs:comment "A simple property for the definition of any physical entity's MAXIMUM LOAD" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://elite.polito.it/ontologies/dogont#Ceiling
+<http://elite.polito.it/ontologies/dogont#Ceiling> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Construction_Element> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Floor
+<http://elite.polito.it/ontologies/dogont#Floor> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Construction_Element> .
+
+
+###  http://who.int/icf/Health#b117
+<http://who.int/icf/Health#b117> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Intellectual functions" .
+
+
+###  http://who.int/icf/Health#b126
+<http://who.int/icf/Health#b126> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Temperament and personality functions" .
+
+
+###  http://who.int/icf/Health#b140
+<http://who.int/icf/Health#b140> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Attention focus" .
+
+
+###  http://who.int/icf/Health#b144
+<http://who.int/icf/Health#b144> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Memory functions" .
+
+
+###  http://who.int/icf/Health#b147
+<http://who.int/icf/Health#b147> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Psychomotor functions" .
+
+
+###  http://who.int/icf/Health#b156
+<http://who.int/icf/Health#b156> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Perceptual functions" .
+
+
+###  http://who.int/icf/Health#b1560
+<http://who.int/icf/Health#b1560> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                  rdfs:comment "Auditory functions" .
+
+
+###  http://who.int/icf/Health#b160
+<http://who.int/icf/Health#b160> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Thought functions" .
+
+
+###  http://who.int/icf/Health#b167
+<http://who.int/icf/Health#b167> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Mental functions of language" .
+
+
+###  http://who.int/icf/Health#b176
+<http://who.int/icf/Health#b176> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Mental function of sequencing complex movements" .
+
+
+###  http://who.int/icf/Health#b210
+<http://who.int/icf/Health#b210> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Seeing functions" .
+
+
+###  http://who.int/icf/Health#b230
+<http://who.int/icf/Health#b230> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Hearing functions" .
+
+
+###  http://who.int/icf/Health#b260
+<http://who.int/icf/Health#b260> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Proprioceptive function" .
+
+
+###  http://who.int/icf/Health#b265
+<http://who.int/icf/Health#b265> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Touch funcionts" .
+
+
+###  http://who.int/icf/Health#b28014
+<http://who.int/icf/Health#b28014> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                   rdfs:comment "Pain in upper limb" .
+
+
+###  http://who.int/icf/Health#b310
+<http://who.int/icf/Health#b310> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Voice functions" .
+
+
+###  http://who.int/icf/Health#b330
+<http://who.int/icf/Health#b330> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Fluency and rhythm of speech functions" .
+
+
+###  http://who.int/icf/Health#b455
+<http://who.int/icf/Health#b455> rdf:type owl:Class .
+
+
+###  http://who.int/icf/Health#b710
+<http://who.int/icf/Health#b710> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Mobility of joint functions" .
+
+
+###  http://who.int/icf/Health#b735
+<http://who.int/icf/Health#b735> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Muscle tone functions" .
+
+
+###  http://who.int/icf/Health#b755
+<http://who.int/icf/Health#b755> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Involuntary movement reaction functions" .
+
+
+###  http://who.int/icf/Health#b760
+<http://who.int/icf/Health#b760> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Control of voluntary movement functions" .
+
+
+###  http://who.int/icf/Health#b770
+<http://who.int/icf/Health#b770> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 rdfs:comment "Gait pattern functions" .
+
+
+###  http://who.int/icf/Health#d115
+<http://who.int/icf/Health#d115> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Listening" .
+
+
+###  http://who.int/icf/Health#d155
+<http://who.int/icf/Health#d155> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Acquiring skills" .
+
+
+###  http://who.int/icf/Health#d160
+<http://who.int/icf/Health#d160> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Focusing attention" .
+
+
+###  http://who.int/icf/Health#d166
+<http://who.int/icf/Health#d166> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Reading" .
+
+
+###  http://who.int/icf/Health#d170
+<http://who.int/icf/Health#d170> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Writing" .
+
+
+###  http://who.int/icf/Health#d172
+<http://who.int/icf/Health#d172> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Calculating" .
+
+
+###  http://who.int/icf/Health#d175
+<http://who.int/icf/Health#d175> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Solving problems" .
+
+
+###  http://who.int/icf/Health#d220
+<http://who.int/icf/Health#d220> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Undertaking multiple tasks" .
+
+
+###  http://who.int/icf/Health#d230
+<http://who.int/icf/Health#d230> rdf:type owl:Class .
+
+
+###  http://who.int/icf/Health#d310
+<http://who.int/icf/Health#d310> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Communicating with - receiving - spoken messages" .
+
+
+###  http://who.int/icf/Health#d315
+<http://who.int/icf/Health#d315> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Communicating with - receiving - nonverbal messages" .
+
+
+###  http://who.int/icf/Health#d330
+<http://who.int/icf/Health#d330> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Speaking" .
+
+
+###  http://who.int/icf/Health#d350
+<http://who.int/icf/Health#d350> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Conversation" .
+
+
+###  http://who.int/icf/Health#d355
+<http://who.int/icf/Health#d355> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Discussion" .
+
+
+###  http://who.int/icf/Health#d410
+<http://who.int/icf/Health#d410> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Changing basic body position" .
+
+
+###  http://who.int/icf/Health#d415
+<http://who.int/icf/Health#d415> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Maintaining a body position" .
+
+
+###  http://who.int/icf/Health#d445
+<http://who.int/icf/Health#d445> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Hand and arm use" .
+
+
+###  http://who.int/icf/Health#d510
+<http://who.int/icf/Health#d510> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Washing oneself" .
+
+
+###  http://who.int/icf/Health#d540
+<http://who.int/icf/Health#d540> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 rdfs:comment "Dressing" .
+
+
+###  http://who.int/icf/Health#s7300
+<http://who.int/icf/Health#s7300> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://who.int/icf/Health#s> ;
+                                  rdfs:comment "Structure of the upper arm" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/#Project
+<http://www.stiima.cnr.it/AgeIT-PNRR/#Project> rdf:type owl:Class .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Device
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Device> owl:equivalentClass <https://saref.etsi.org/core#Device> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> rdf:type owl:Class ;
+                                                                rdfs:subClassOf <http://www.https://saref.etsi.org/saref4ehaw/v1.1.1//HealthDevice> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#06
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#06> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#15
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#15> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#24
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#24> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#27
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#27> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#28
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#28> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#30
+<http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#30> rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/Device#Assistive_Products> .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/BathroomObject
+:BathroomObject rdf:type owl:NamedIndividual ,
+                         <http://elite.polito.it/ontologies/dogont#Bathroom> .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/BedroomObject
+:BedroomObject rdf:type owl:NamedIndividual ,
+                        <http://elite.polito.it/ontologies/dogont#Bedroom> .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/DiningRoomObject
+:DiningRoomObject rdf:type owl:NamedIndividual ,
+                           <http://elite.polito.it/ontologies/dogont#DiningRoom> .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/KitchenObject
+:KitchenObject rdf:type owl:NamedIndividual ,
+                        <http://elite.polito.it/ontologies/dogont#Kitchen> .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/LivingRoomObject
+:LivingRoomObject rdf:type owl:NamedIndividual ,
+                           <http://elite.polito.it/ontologies/dogont#LivingRoom> .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/LobbyObject
+:LobbyObject rdf:type owl:NamedIndividual ,
+                      <http://elite.polito.it/ontologies/dogont#Lobby> .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/PR01
+:PR01 rdf:type owl:NamedIndividual ,
+               <http://www.stiima.cnr.it/AgeIT-PNRR/#Project> ;
+      :projectRenovates :BathroomObject .
+
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/29/untitled-ontology-13/StorageRoomObject
+:StorageRoomObject rdf:type owl:NamedIndividual ,
+                            <http://elite.polito.it/ontologies/dogont#StorageRoom> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#BD13
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#BD13> rdf:type owl:NamedIndividual ,
+                                                           <http://www.stiima.cnr.it/Age-IT-PNRR/Health#BD13> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC01
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC01> rdf:type owl:NamedIndividual ,
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/Person#HealthCondition> ;
+                                                  <http://www.stiima.cnr.it/Age-IT-PNRR/Health#isCharacterizedBy> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-01> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-02> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-03> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-04> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-05> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-06> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-07> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-08> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-09> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-10> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-11> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-12> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-13> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-14> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-15> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-16> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-17> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-18> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-19> ;
+                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Person#assessedOnDate> "2024-11-20"^^xsd:date .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC02
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC02> rdf:type owl:NamedIndividual ,
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/Person#HealthCondition> ;
+                                                  <http://www.stiima.cnr.it/Age-IT-PNRR/Health#isCharacterizedBy> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-01> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-02> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-03> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-04> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-05> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-06> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-07> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-08> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-09> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-10> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-11> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-12> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-13> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-14> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-15> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-16> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-17> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-18> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-19> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-20> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-21> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-22> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-23> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-24> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC03
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC03> rdf:type owl:NamedIndividual ,
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/Person#HealthCondition> ;
+                                                  <http://www.stiima.cnr.it/Age-IT-PNRR/Health#isCharacterizedBy> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-01> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-02> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-03> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-04> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-05> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-06> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-07> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-08> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-09> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-10> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-11> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-12> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-13> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-14> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-15> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-16> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-17> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-18> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-19> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC04
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC04> rdf:type owl:NamedIndividual ,
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/Person#HealthCondition> ;
+                                                  <http://www.stiima.cnr.it/Age-IT-PNRR/Health#isCharacterizedBy> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-01> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-02> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-03> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-04> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-05> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-06> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-07> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-08> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-09> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-10> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-11> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-12> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-13> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-14> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-15> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-16> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-17> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-18> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-19> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-20> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC05
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC05> rdf:type owl:NamedIndividual ,
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/Person#HealthCondition> ;
+                                                  <http://www.stiima.cnr.it/Age-IT-PNRR/Health#isCharacterizedBy> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-01> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-02> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-03> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-04> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-05> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-06> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-07> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-08> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-09> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-10> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-11> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-12> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-13> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-14> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-15> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-16> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-17> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-18> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-19> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-20> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-21> ,
+                                                                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-22> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#P01
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#P01> rdf:type owl:NamedIndividual ,
+                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#isInHealthCondition> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC01> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#taxIdCode> "RSSVCN59S11F205F" ;
+                                                 <http://xmlns.com/foaf/spec/#age> "65"^^xsd:int ;
+                                                 <http://xmlns.com/foaf/spec/#birthday> "1959-11-25"^^xsd:date ;
+                                                 <http://xmlns.com/foaf/spec/#firstName> "Vincenzo" ;
+                                                 <http://xmlns.com/foaf/spec/#lastName> "Rossi" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#P02
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#P02> rdf:type owl:NamedIndividual ,
+                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#isInHealthCondition> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC02> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#taxIdCode> "GGLSDR51A62A794Y" ;
+                                                 <http://xmlns.com/foaf/spec/#age> "74"^^xsd:int ;
+                                                 <http://xmlns.com/foaf/spec/#birthday> "1951-01-22"^^xsd:date ;
+                                                 <http://xmlns.com/foaf/spec/#firstName> "Sandra" ;
+                                                 <http://xmlns.com/foaf/spec/#lastName> "Guglielmini" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#P03
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#P03> rdf:type owl:NamedIndividual ,
+                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#isInHealthCondition> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC03> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#taxIdCode> "CCCGRG43R30D643H" ;
+                                                 <http://xmlns.com/foaf/spec/#age> "81"^^xsd:int ;
+                                                 <http://xmlns.com/foaf/spec/#birthday> "1943-10-30"^^xsd:date ;
+                                                 <http://xmlns.com/foaf/spec/#firstName> "Giorgio" ;
+                                                 <http://xmlns.com/foaf/spec/#lastName> "Cecchi" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#P04
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#P04> rdf:type owl:NamedIndividual ,
+                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#isInHealthCondition> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC04> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#taxIdCode> "CLBLLL71H53D704O" ;
+                                                 <http://xmlns.com/foaf/spec/#age> "53"^^xsd:int ;
+                                                 <http://xmlns.com/foaf/spec/#birthday> "1971-06-13"^^xsd:date ;
+                                                 <http://xmlns.com/foaf/spec/#firstName> "Luisella" ;
+                                                 <http://xmlns.com/foaf/spec/#lastName> "Calabrini" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#P05
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#P05> rdf:type owl:NamedIndividual ,
+                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#isInHealthCondition> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#HC05> ;
+                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/Person#taxIdCode> "TGLNTN41L24B180V" ;
+                                                 <http://xmlns.com/foaf/spec/#age> "83"^^xsd:int ;
+                                                 <http://xmlns.com/foaf/spec/#birthday> "1941-07-24"^^xsd:date ;
+                                                 <http://xmlns.com/foaf/spec/#firstName> "Antonio" ;
+                                                 <http://xmlns.com/foaf/spec/#lastName> "Tagliabue" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b117
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b117> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b117> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b126
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b126> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b126> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b130
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b130> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b130> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b134
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b134> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b134> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b140
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b140> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b140> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b144
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b144> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b144> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b147
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b147> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b147> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b152
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b152> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b152> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b156
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b156> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b156> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b1560
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b1560> rdf:type owl:NamedIndividual ,
+                                                            <http://who.int/icf/Health#b1560> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b160
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b160> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b160> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b167
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b167> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b167> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b176
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b176> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b176> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b210
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b210> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b210> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b230
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b230> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b230> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b260
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b260> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b260> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b265
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b265> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b265> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b280
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b280> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b280> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b28014
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b28014> rdf:type owl:NamedIndividual ,
+                                                             <http://who.int/icf/Health#b28014> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b310
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b310> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b310> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b330
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b330> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b330> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b410
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b410> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b410> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b415
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b415> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b415> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b420
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b420> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b420> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b440
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b440> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b440> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b455
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b455> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b455> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b460
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b460> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b460> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b710
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b710> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b710> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b730
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b730> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b730> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b735
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b735> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b735> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b740
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b740> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b740> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b755
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b755> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b755> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b760
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b760> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b760> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#b770
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#b770> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#b770> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d115
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d115> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d115> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d155
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d155> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d155> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d160
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d160> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d160> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d166
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d166> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d166> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d170
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d170> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d170> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d172
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d172> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d172> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d175
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d175> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d175> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d220
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d220> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d220> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d230
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d230> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d230> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d240
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d240> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d240> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d310
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d310> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d310> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d315
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d315> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d315> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d330
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d330> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d330> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d350
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d350> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d350> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d355
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d355> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d355> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d410
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d410> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d410> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d415
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d415> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d415> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d430
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d430> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d430> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d445
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d445> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d445> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d450
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d450> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d450> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d455
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d455> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d455> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d470
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d470> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf//Health#d470> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d510
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d510> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d510> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d540
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d540> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d540> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d570
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d570> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d570> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d630
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d630> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d630> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#d760
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#d760> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#d760> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-01
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-01> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#e115> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-e-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-02
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-02> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#e140> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-e-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-03
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-03> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#e310> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-e-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-04
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-04> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#e320> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-e-1> "-1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-05
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-05> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#e325> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-e-1> "-1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-06
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-06> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d240> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-07
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-07> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d450> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-08
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-08> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d470> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-09
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-09> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d760> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-10
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-10> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d570> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-11
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-11> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b130> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-12
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-12> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b134> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-13
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-13> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b440> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-14
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-14> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b460> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-15
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-15> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b730> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-16
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-16> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b740> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-17
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-17> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#s410> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-1> "1"^^xsd:int ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-2> "0"^^xsd:int ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-3> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-18
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-18> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICDCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#BD13> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-19
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC01-19> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICDCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#7A40.0> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-01
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-01> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b126> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-02
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-02> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b130> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-03
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-03> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b140> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-04
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-04> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b144> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-05
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-05> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b152> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-06
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-06> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b176> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-07
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-07> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b210> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-08
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-08> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b260> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-09
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-09> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b310> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-10
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-10> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b420> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-11
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-11> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b455> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-12
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-12> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b755> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-13
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-13> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b760> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-14
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-14> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b770> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-15
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-15> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d115> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-16
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-16> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d155> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-17
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-17> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d160> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-18
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-18> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d166> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-19
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-19> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d170> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-20
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-20> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d175> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-21
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-21> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d220> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-22
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-22> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d330> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-23
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-23> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d445> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-24
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC02-24> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#s7300> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-1> "2"^^xsd:int ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-2> "7"^^xsd:int ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-3> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-01
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-01> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b126> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-02
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-02> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b130> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-03
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-03> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b134> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-04
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-04> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b140> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-05
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-05> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b147> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-06
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-06> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b152> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-07
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-07> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b280> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-08
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-08> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b455> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-09
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-09> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b730> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-10
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-10> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d160> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-11
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-11> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d230> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-12
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-12> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d410> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-13
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-13> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d415> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-14
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-14> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d430> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-15
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-15> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d450> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-16
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-16> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d455> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-17
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-17> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d510> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-18
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-18> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d540> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-19
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC03-19> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d630> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-01
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-01> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b140> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-02
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-02> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b144> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-03
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-03> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b156> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-04
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-04> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b160> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-05
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-05> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b265> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-06
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-06> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b28014> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-07
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-07> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b455> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-08
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-08> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b710> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-09
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-09> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b735> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-10
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-10> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b740> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-11
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-11> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b755> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-12
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-12> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b760> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-13
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-13> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b770> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "4"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-14
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-14> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d160> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-15
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-15> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d166> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-16
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-16> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d170> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-17
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-17> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d172> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-18
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-18> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d175> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-19
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-19> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d410> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-20
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC04-20> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d450> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "4"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-01
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-01> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b117> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-02
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-02> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b140> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-03
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-03> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b144> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-04
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-04> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b1560> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "4"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-05
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-05> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b160> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-06
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-06> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b167> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-07
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-07> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b230> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "4"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-08
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-08> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b330> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-09
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-09> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b735> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-10
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-10> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#b740> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-11
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-11> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d115> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "4"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-12
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-12> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d155> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-13
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-13> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d160> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-14
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-14> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d175> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-15
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-15> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d310> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "4"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-16
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-16> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d315> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "1"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-17
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-17> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d330> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-18
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-18> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d350> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-19
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-19> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d355> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-20
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-20> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d510> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-21
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-21> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d540> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "2"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-22
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#desHC05-22> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#d630> ;
+                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1> "3"^^xsd:int .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_AMPLIFICATOREVOCE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_AMPLIFICATOREVOCE1> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.09.06> ;
+                                                                    :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_AMPLIFICATOREVOCE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_AMPLIFICATOREVOCE2> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.09.06> ;
+                                                                    :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_BASTONECONSEDILE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_BASTONECONSEDILE1> rdf:type owl:NamedIndividual ,
+                                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.03.18> ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.35 ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.35 ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.98 ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_BASTONECONSEDILE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_BASTONECONSEDILE2> rdf:type owl:NamedIndividual ,
+                                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.03.18> ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.35 ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.35 ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.98 ;
+                                                                   <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_BICIAUTOSPINTAPIEDI
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_BICIAUTOSPINTAPIEDI> rdf:type owl:NamedIndividual ,
+                                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.27.22> ;
+                                                                     <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.92 ;
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.87 ;
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.15 ;
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CANNOCVISVICINA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CANNOCVISVICINA1> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.03.09> ;
+                                                                  :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CANNOCVISVICINA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CANNOCVISVICINA2> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.03.09> ;
+                                                                  :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CANNOCVISVICINA3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CANNOCVISVICINA3> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.03.09> ;
+                                                                  :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CICLOERGOMETRO1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CICLOERGOMETRO1> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.03> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.9 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.64 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.26 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 180 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CICLOERGOMETRO2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CICLOERGOMETRO2> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.03> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.9 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.64 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.26 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 180 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CICLOERGOMETRO3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CICLOERGOMETRO3> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.03> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.5 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.56 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.43 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 140 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICDINAMICO1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICDINAMICO1> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.21.09> ;
+                                                                  :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICDINAMICO2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICDINAMICO2> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.21.09> ;
+                                                                  :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICDINAMICO3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICDINAMICO3> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.21.09> ;
+                                                                  :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICINTERP1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICINTERP1> rdf:type owl:NamedIndividual ,
+                                                                         <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.21.12> ;
+                                                                :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICINTERP2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_COMUNICINTERP2> rdf:type owl:NamedIndividual ,
+                                                                         <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.21.12> ;
+                                                                :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CORRIMANO1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CORRIMANO1> rdf:type owl:NamedIndividual ,
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.18.03> ;
+                                                            :adaptableDimensions "true"^^xsd:boolean ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CORRIMANO2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CORRIMANO2> rdf:type owl:NamedIndividual ,
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.18.03> ;
+                                                            :adaptableDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CORRIMANO3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CORRIMANO3> rdf:type owl:NamedIndividual ,
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.18.03> ;
+                                                            :adaptableDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CPAP
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_CPAP> rdf:type owl:NamedIndividual ,
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.03.12> ;
+                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Weight> 1.8 ;
+                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.15 ;
+                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.18 ;
+                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.19 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DEAMBCONRUOTE
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DEAMBCONRUOTE> rdf:type owl:NamedIndividual ,
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.06.03> ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.35 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.65 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.92 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DEAMBNORUOTE
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DEAMBNORUOTE> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.06.03> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.8 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.56 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.75 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 25 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DEAMBSEDILE
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DEAMBSEDILE> rdf:type owl:NamedIndividual ,
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.06.12> ;
+                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.85 ;
+                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.68 ;
+                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.4 ;
+                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DISPLAYBRAILLE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DISPLAYBRAILLE1> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.39.05> ;
+                                                                 :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DISPLAYBRAILLE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_DISPLAYBRAILLE2> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.39.05> ;
+                                                                 :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_GIRELLODEAMB1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_GIRELLODEAMB1> rdf:type owl:NamedIndividual ,
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.06.12> ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.5 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.5 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.15 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_GIRELLODEAMB2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_GIRELLODEAMB2> rdf:type owl:NamedIndividual ,
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.06.12> ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.73 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.01 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.2 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 45 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_GUANTONONUDENTI
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_GUANTONONUDENTI> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.06.06> ;
+                                                                 :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_INFILACALZE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_INFILACALZE1> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.09.03> ;
+                                                              :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_INFILACALZE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_INFILACALZE2> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.09.03> ;
+                                                              :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LENTEINGRAND
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LENTEINGRAND> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.03.09> ;
+                                                              :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR1> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.12.10> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 2.1 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.96 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.26 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 225 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR2> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.12.10> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 1.14 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 2 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.42 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 185 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR3> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.12.10> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 1.02 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 2.22 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.4 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 250 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR4
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTOREGELETTR4> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.12.10> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.9 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 2.01 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.75 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 120 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTURADOCCARTACEI1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTURADOCCARTACEI1> rdf:type owl:NamedIndividual ,
+                                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.13.18> ;
+                                                                     :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTURADOCCARTACEI2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTURADOCCARTACEI2> rdf:type owl:NamedIndividual ,
+                                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.13.18> ;
+                                                                     :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTURADOCCARTACEI3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_LETTURADOCCARTACEI3> rdf:type owl:NamedIndividual ,
+                                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.13.18> ;
+                                                                     :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_PARALLELEDEAMB
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_PARALLELEDEAMB> rdf:type owl:NamedIndividual ,
+                                                                         <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.07> ;
+                                                                <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.36 ;
+                                                                <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 2.5 ;
+                                                                <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.78 ;
+                                                                rdfs:comment """Minimum dimensions were used. Maximum dimensions are, in meters, as follows:
+X=0.8 | Y=4 | Z=1.04""" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_PENNA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_PENNA1> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.13.24> ;
+                                                        :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_PENNA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_PENNA2> rdf:type owl:NamedIndividual ,
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.13.24> ;
+                                                        :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_POLTRONA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_POLTRONA1> rdf:type owl:NamedIndividual ,
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.09.15> ;
+                                                           <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.5 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.5 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.6 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 130 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_POLTRONA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_POLTRONA2> rdf:type owl:NamedIndividual ,
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.09.15> ;
+                                                           <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.78 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.8 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.07 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 175 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_POLTRONA3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_POLTRONA3> rdf:type owl:NamedIndividual ,
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.09.15> ;
+                                                           <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.62 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.76 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.07 ;
+                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 120 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_QUADRIPODI
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_QUADRIPODI> rdf:type owl:NamedIndividual ,
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.03.16> ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.1 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.1 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.98 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 125 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIA
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIA> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.33.07> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.38 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.39 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 135 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIACONRUOTE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIACONRUOTE1> rdf:type owl:NamedIndividual ,
+                                                                                <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.33.07> ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.74 ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.06 ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.1 ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 160 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIACONRUOTE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIACONRUOTE2> rdf:type owl:NamedIndividual ,
+                                                                                <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.33.07> ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.9 ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.51 ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1 ;
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 130 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIANORUOTE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIANORUOTE1> rdf:type owl:NamedIndividual ,
+                                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.33.07> ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.47 ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.62 ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.89 ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 200 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIANORUOTE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEDOCCIANORUOTE2> rdf:type owl:NamedIndividual ,
+                                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.33.07> ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.5 ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.4 ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.52 ;
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 150 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEVASCA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEVASCA1> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.33.05> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.7 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.45 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.25 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 130 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEVASCA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SEDILEVASCA2> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.33.05> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.78 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.45 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.2 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 150 ;
+                                                              rdfs:comment """Clamps have distance range, in meters, of:
+0.42 - 0.67""" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SISCONTPOS1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SISCONTPOS1> rdf:type owl:NamedIndividual ,
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.07.03> ;
+                                                             :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SISCONTPOS2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SISCONTPOS2> rdf:type owl:NamedIndividual ,
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.07.03> ;
+                                                             :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SISCONTPOS3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SISCONTPOS3> rdf:type owl:NamedIndividual ,
+                                                                      <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.07.03> ;
+                                                             :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVFISSO1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVFISSO1> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.12> ;
+                                                              <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 1.13 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.08 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 2.2 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 140 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVFISSO2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVFISSO2> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.12> ;
+                                                              <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 2.1 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.5 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 2.8 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 130 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILIMBRAG1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILIMBRAG1> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.03> ;
+                                                                    <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 1.05 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.87 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.75 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 175 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILIMBRAG2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILIMBRAG2> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.03> ;
+                                                                    <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.58 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.13 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.8 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 200 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILIMBRAG3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILIMBRAG3> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.03> ;
+                                                                    <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 1.27 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.61 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.87 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 150 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILSTAZERETTA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILSTAZERETTA1> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.04> ;
+                                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.96 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.2 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.05 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 160 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILSTAZERETTA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILSTAZERETTA2> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.04> ;
+                                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.61 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.15 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.28 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 160 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILSTAZERETTA3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVMOBILSTAZERETTA3> rdf:type owl:NamedIndividual ,
+                                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.04> ;
+                                                                        <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.57 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.82 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.2 ;
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 130 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSEDILE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSEDILE1> rdf:type owl:NamedIndividual ,
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.06> ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.5 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.5 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.9 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 120 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSEDILE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSEDILE2> rdf:type owl:NamedIndividual ,
+                                                                        <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.06> ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 1 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.5 ;
+                                                               <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 150 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSOFFITTO1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSOFFITTO1> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.12> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Ceiling> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.21 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.15 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.32 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 200 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSOFFITTO2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSOFFITTO2> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.12> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Ceiling> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.36 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.25 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.195 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 300 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSOFFITTO3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SOLLEVSOFFITTO3> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.36.12> ;
+                                                                 <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Ceiling> ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.58 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.2 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.36 ;
+                                                                 <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 300 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SPAZZOLINIDENTI
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SPAZZOLINIDENTI> rdf:type owl:NamedIndividual ,
+                                                                          <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#09.42.06> ;
+                                                                 :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SPONDALETTO1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SPONDALETTO1> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.12.26> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.3 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 1.05 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.9 ;
+                                                              rdfs:comment """Minimum dimensions were used. Maximum dimensions are, in meters, as follows:
+X=0.5 | Y=1.8 | Z=1.85""" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SPONDALETTO2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SPONDALETTO2> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#18.12.26> ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.8 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.66 ;
+                                                              <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.59 ;
+                                                              rdfs:comment """Minimum dimensions were used. Maximum dimensions are, in meters, as follows:
+X=0.8 | Y=1.06 | Z=0.59""" .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABPOSIZSEDUTA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABPOSIZSEDUTA1> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.42> ;
+                                                                  <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.65 ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.91 ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.3 ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABPOSIZSEDUTA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABPOSIZSEDUTA2> rdf:type owl:NamedIndividual ,
+                                                                           <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.42> ;
+                                                                  <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.62 ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.78 ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.85 ;
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 25 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABSTATICAERETTA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABSTATICAERETTA1> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.39> ;
+                                                                    <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.85 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.65 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.23 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 120 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABSTATICAERETTA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABSTATICAERETTA2> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.39> ;
+                                                                    <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 1.05 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.66 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.1 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 120 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABSTATICAERETTA3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STABSTATICAERETTA3> rdf:type owl:NamedIndividual ,
+                                                                             <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.48.39> ;
+                                                                    <http://www.stiima.cnr.it/Age-IT-PNRR/Health#requiresAttachmentTo> <http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.83 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.64 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.4 ;
+                                                                    <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 100 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STAMPELLE1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STAMPELLE1> rdf:type owl:NamedIndividual ,
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.03.06> ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.15 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.15 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.06 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 140 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STAMPELLE2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_STAMPELLE2> rdf:type owl:NamedIndividual ,
+                                                                     <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.03.06> ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.15 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.1 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 1.35 ;
+                                                            <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 114 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SUPPMEMORIA1
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SUPPMEMORIA1> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.28.12> ;
+                                                              :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SUPPMEMORIA2
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SUPPMEMORIA2> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.28.12> ;
+                                                              :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SUPPMEMORIA3
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_SUPPMEMORIA3> rdf:type owl:NamedIndividual ,
+                                                                       <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#22.28.12> ;
+                                                              :negligibleDimensions "true"^^xsd:boolean .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_TRIPODI
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#dev_TRIPODI> rdf:type owl:NamedIndividual ,
+                                                                  <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#12.03.16> ;
+                                                         <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> 0.29 ;
+                                                         <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> 0.33 ;
+                                                         <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> 0.86 ;
+                                                         <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/maximumLoad> 110 .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e115
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e115> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e115> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e135
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e135> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e135> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e140
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e140> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e140> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e255
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e255> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e225> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e260
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e260> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e260> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e310
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e310> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e310> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e320
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e320> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e320> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e325
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e325> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e325> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e415
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e415> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e415> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e420
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e420> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e420> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e425
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e425> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e425> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e455
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e455> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e455> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#e460
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#e460> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#e460> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#s410
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#s410> rdf:type owl:NamedIndividual ,
+                                                           <http://who.int/icf/Health#s410> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#s7300
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#s7300> rdf:type owl:NamedIndividual ,
+                                                            <http://who.int/icf/Health#s7300> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#7A40.0
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#7A40.0> rdf:type owl:NamedIndividual ,
+                                                             <http://www.stiima.cnr.it/Age-IT-PNRR/Health#7A40.0> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Ceiling
+<http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Ceiling> rdf:type owl:NamedIndividual ,
+                                                               <http://elite.polito.it/ontologies/dogont#Ceiling> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor
+<http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Floor> rdf:type owl:NamedIndividual ,
+                                                             <http://elite.polito.it/ontologies/dogont#Floor> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Wall
+<http://www.stiima.cnr.it/AgeIT-PNRR/Surface#Wall> rdf:type owl:NamedIndividual ,
+                                                            <http://elite.polito.it/ontologies/dogont#Wall> .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+<urn:swrl:var#p> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#hc> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#d> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#dev> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#y> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#z> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#x> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#v> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/Person#Person> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#p>
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/Person#isInHealthCondition> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#p> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#hc>
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/Age-IT-PNRR/Health#isCharacterizedBy> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#hc> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#d>
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> <http://www.stiima.cnr.it/Age-IT-PNRR/Health#ICDDesc> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#d>
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICDCode> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#d> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#argument2> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#7A40.0>
+                                                                                                 ] ;
+                                                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#classPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999#04.03.12> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#dev>
+                                                                                                            ] ;
+                                                                                                  rdf:rest rdf:nil
+                                                                                                ]
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/Device#deviceSuggestedFor> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#dev> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#p>
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <https://saref.etsi.org/core#Device> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#d>
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#d> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#y>
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#d> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#z>
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#d> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#x>
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#multiply> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#arguments> ( <urn:swrl:var#v>
+                                                                                                                                                <urn:swrl:var#x>
+                                                                                                                                                <urn:swrl:var#y>
+                                                                                                                                                <urn:swrl:var#z>
+                                                                                                                                              )
+                                                                                                 ] ;
+                                                                                       rdf:rest rdf:nil
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/BoundingBox> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#d> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#v>
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

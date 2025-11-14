@@ -1,0 +1,146 @@
+@prefix : <http://www.https://saref.etsi.org/saref4ehaw/v1.1.1//> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.https://saref.etsi.org/saref4ehaw/v1.1.1//> .
+
+<http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/> rdf:type owl:Ontology ;
+                                                        rdfs:comment """\"SAREF Core\" and \"SAREF for Health Ageing Well domain (SAREF4ehaw)\" excerpts for the AgeIt project.
+
+- SAREF Core: https://saref.etsi.org/core/v3.2.1/ 
+- SAREF4ehaw: https://saref.etsi.org/saref4ehaw/v1.1.1/""" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/hadDeviceCharacteristic
+:hadDeviceCharacteristic rdf:type owl:ObjectProperty ;
+                         rdfs:domain :HealthDevice ;
+                         rdfs:range :DeviceCharacteristic .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/hasPowerSource
+:hasPowerSource rdf:type owl:ObjectProperty ;
+                rdfs:domain :DeviceCharacteristic ;
+                rdfs:range :PowerSource .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/presents
+:presents rdf:type owl:ObjectProperty ;
+          rdfs:domain <https://saref.etsi.org/core#Service> ;
+          rdfs:range :ServiceProfile .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/Device#hasISOClassification
+<http://www.stiima.cnr.it/AgeIT-PNRR/Device#hasISOClassification> rdf:type owl:ObjectProperty ;
+                                                                  rdfs:domain :HealthDevice .
+
+
+###  https://saref.etsi.org/core#isMeasuredByDevice
+<https://saref.etsi.org/core#isMeasuredByDevice> rdf:type owl:ObjectProperty ;
+                                                 rdfs:domain <https://saref.etsi.org/core#Property> ;
+                                                 rdfs:range <https://saref.etsi.org/core#Sensor> .
+
+
+###  https://saref.etsi.org/core#offers
+<https://saref.etsi.org/core#offers> rdf:type owl:ObjectProperty ;
+                                     rdfs:domain <https://saref.etsi.org/core#Device> ;
+                                     rdfs:range <https://saref.etsi.org/core#Service> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/rechargable
+:rechargable rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain :PowerSource ;
+             rdfs:range xsd:boolean .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/service_description
+:service_description rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :ServiceProfile ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/service_name
+:service_name rdf:type owl:DatatypeProperty ;
+              rdfs:domain :ServiceProfile ;
+              rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/DeviceCharacteristic
+:DeviceCharacteristic rdf:type owl:Class .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/HealthDevice
+:HealthDevice rdf:type owl:Class ;
+              rdfs:subClassOf <https://saref.etsi.org/core#Device> .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/HealthSensor
+:HealthSensor rdf:type owl:Class ;
+              rdfs:subClassOf :HealthDevice ,
+                              <https://saref.etsi.org/core#Sensor> .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/PowerSource
+:PowerSource rdf:type owl:Class .
+
+
+###  http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/ServiceProfile
+:ServiceProfile rdf:type owl:Class .
+
+
+###  https://saref.etsi.org/core#Actuator
+<https://saref.etsi.org/core#Actuator> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://saref.etsi.org/core#Device> .
+
+
+###  https://saref.etsi.org/core#Device
+<https://saref.etsi.org/core#Device> rdf:type owl:Class .
+
+
+###  https://saref.etsi.org/core#Humidity
+<https://saref.etsi.org/core#Humidity> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://saref.etsi.org/core#Property> .
+
+
+###  https://saref.etsi.org/core#Light
+<https://saref.etsi.org/core#Light> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://saref.etsi.org/core#Property> .
+
+
+###  https://saref.etsi.org/core#Motion
+<https://saref.etsi.org/core#Motion> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://saref.etsi.org/core#Property> .
+
+
+###  https://saref.etsi.org/core#Property
+<https://saref.etsi.org/core#Property> rdf:type owl:Class .
+
+
+###  https://saref.etsi.org/core#Sensor
+<https://saref.etsi.org/core#Sensor> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://saref.etsi.org/core#Device> .
+
+
+###  https://saref.etsi.org/core#Service
+<https://saref.etsi.org/core#Service> rdf:type owl:Class .
+
+
+###  https://saref.etsi.org/core#Temperature
+<https://saref.etsi.org/core#Temperature> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://saref.etsi.org/core#Property> .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
