@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="http://www.stiima.cnr.it/AgeIT-PNRR/ISO9999" uri="ISO9999.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://www.stiima.cnr.it/Age-IT-PNRR/Health" uri="Health.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://www.stiima.cnr.it/AgeIT-PNRR/Person" uri="Person.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://www.https://saref.etsi.org/saref4ehaw/v1.1.1/" uri="saref.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://www.stiima.cnr.it/AgeIT-PNRR/Person" uri="Person.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv" uri="BuiltEnv.ttl"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1748371966266" name="http://who.int/icf" uri="icf_2012.05.08_merged_for_bp.owl"/>
+    </group>
+</catalog>

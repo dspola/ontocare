@@ -1,0 +1,259 @@
+@prefix : <http://www.semanticweb.org/spoladore/ontologies/2024/10/8/untitled-ontology-11/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/spoladore/ontologies/2024/10/8/untitled-ontology-11/> .
+
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv> rdf:type owl:Ontology ;
+                                                rdfs:comment """The Built Environment and Elements' Simple Geometry module of the AgeIt domain ontology.
+Reusing excerpts of:
+
+- \"Building Topology Ontology (BOT)\" https://w3c-lbd-cg.github.io/bot/
+- \" Ontology Modeling for Intelligent Domotic Environments (DogOnt)\" http://elite.polito.it/ontologies/dogont""" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/8/untitled-ontology-11/description
+:description rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/spoladore/ontologies/2024/10/8/untitled-ontology-11/containsElement
+:containsElement rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf <https://w3id.org/bot#hasElement> ;
+                 :description "contains element - Relation to a building element contained in a zone." ;
+                 rdfs:comment "usare questa per collegare istanze di sensori e dispositivi che si trovano in uno bot:Space" .
+
+
+###  https://w3id.org/bot#adjacentZone
+<https://w3id.org/bot#adjacentZone> rdf:type owl:ObjectProperty ;
+                                    rdfs:domain <https://w3id.org/bot#Zone> ;
+                                    rdfs:range <https://w3id.org/bot#Zone> ;
+                                    :description "adjacent zone - Relationship between two zones that share a common interface, but do not intersect." .
+
+
+###  https://w3id.org/bot#containsZone
+<https://w3id.org/bot#containsZone> rdf:type owl:ObjectProperty ;
+                                    rdfs:domain <https://w3id.org/bot#Zone> ;
+                                    rdfs:range <https://w3id.org/bot#Zone> ;
+                                    :description "contains zone - Relationship to the subzones of a major zone. A space zone could for instance be contained in a storey zone which is further contained in a building zone. bot:containsZone is a transitive property. This implies that in the previous example a bot:containsZone relationship holds between the space zone and the building zone." .
+
+
+###  https://w3id.org/bot#hasElement
+<https://w3id.org/bot#hasElement> rdf:type owl:ObjectProperty ;
+                                  rdfs:domain <https://w3id.org/bot#Zone> ;
+                                  rdfs:range <https://w3id.org/bot#Element> ;
+                                  :description "has element - Links a Zone to an Element that is either contained in, adjacent to or intersecting with the Zone. The intended use of this relationship is not to be stated explicitly, but to be inferred from its sub-properties. It will, for example, allow one to query for all the doors of a building given that they have an adjacency to spaces of the building." .
+
+
+###  https://w3id.org/bot#hasSubElement
+<https://w3id.org/bot#hasSubElement> rdf:type owl:ObjectProperty ;
+                                     rdfs:domain <https://w3id.org/bot#Element> ;
+                                     rdfs:range <https://w3id.org/bot#Element> ;
+                                     :description "hosts element - Relation between two building elements, either one element hosting another (e.g. a wall hosts a window) or a subcomposition of a building element into smaller parts (e.g. an air handling unit has as a part a fan)." .
+
+
+###  https://w3id.org/bot#interfaceOf
+<https://w3id.org/bot#interfaceOf> rdf:type owl:ObjectProperty ;
+                                   rdfs:domain <https://w3id.org/bot#Interface> ;
+                                   rdfs:range [ rdf:type owl:Class ;
+                                                owl:unionOf ( <https://w3id.org/bot#Element>
+                                                              <https://w3id.org/bot#Zone>
+                                                            )
+                                              ] ;
+                                   :description "interface of - Relationship between an interface and another thing (building zone, element or owl:Thing)." .
+
+
+###  https://w3id.org/bot#intersectsZone
+<https://w3id.org/bot#intersectsZone> rdf:type owl:ObjectProperty ;
+                                      rdfs:domain <https://w3id.org/bot#Zone> ;
+                                      rdfs:range <https://w3id.org/bot#Zone> ;
+                                      :description "intersects zone - Relationship between two zones whose 3D extent intersect. For example, a stairwell intersects different storeys." .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/BoundingBox
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/BoundingBox> rdf:type owl:DatatypeProperty ;
+                                                           rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                                                           rdf:type owl:FunctionalProperty ;
+                                                           rdfs:comment "A simple property for the definition of any physical entity's VOLUME (Bounding Box)." .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Weight
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Weight> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                                                      rdf:type owl:FunctionalProperty ;
+                                                      rdfs:range xsd:decimal ;
+                                                      rdfs:comment "A simple property for the definition of any physical entity's WEIGHT." .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/XDimension> rdf:type owl:DatatypeProperty ;
+                                                          rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                                                          rdf:type owl:FunctionalProperty ;
+                                                          rdfs:range xsd:decimal ;
+                                                          rdfs:comment "A simple property for the definition of any physical entity's LENGHT." .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/YDimension> rdf:type owl:DatatypeProperty ;
+                                                          rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                                                          rdf:type owl:FunctionalProperty ;
+                                                          rdfs:range xsd:decimal ;
+                                                          rdfs:comment "A simple property for the definition of any physical entity's HEIGHT." .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/ZDimension> rdf:type owl:DatatypeProperty ;
+                                                          rdfs:subPropertyOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> ;
+                                                          rdf:type owl:FunctionalProperty ;
+                                                          rdfs:range xsd:decimal ;
+                                                          rdfs:comment "A simple property for the definition of any physical entity's WIDTH." .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/dimension> rdf:type owl:DatatypeProperty ;
+                                                         rdfs:comment "A property for defining the geometry of spaces, rooms, elements, and devices (imported from the SAREF module)." .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://elite.polito.it/ontologies/dogont#Armchair
+<http://elite.polito.it/ontologies/dogont#Armchair> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Furniture> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Bathroom
+<http://elite.polito.it/ontologies/dogont#Bathroom> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Bed
+<http://elite.polito.it/ontologies/dogont#Bed> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Furniture> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Bedroom
+<http://elite.polito.it/ontologies/dogont#Bedroom> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Closet
+<http://elite.polito.it/ontologies/dogont#Closet> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Furniture> .
+
+
+###  http://elite.polito.it/ontologies/dogont#DiningRoom
+<http://elite.polito.it/ontologies/dogont#DiningRoom> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Door
+<http://elite.polito.it/ontologies/dogont#Door> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Construction_Element> .
+
+
+###  http://elite.polito.it/ontologies/dogont#DoubleBed
+<http://elite.polito.it/ontologies/dogont#DoubleBed> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Bed> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Drawer
+<http://elite.polito.it/ontologies/dogont#Drawer> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Furniture> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Furniture
+<http://elite.polito.it/ontologies/dogont#Furniture> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <https://w3id.org/bot#Element> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Kitchen
+<http://elite.polito.it/ontologies/dogont#Kitchen> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://elite.polito.it/ontologies/dogont#LivingRoom
+<http://elite.polito.it/ontologies/dogont#LivingRoom> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Lobby
+<http://elite.polito.it/ontologies/dogont#Lobby> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Nightstand
+<http://elite.polito.it/ontologies/dogont#Nightstand> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Furniture> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Room
+<http://elite.polito.it/ontologies/dogont#Room> rdf:type owl:Class .
+
+
+###  http://elite.polito.it/ontologies/dogont#SingleBed
+<http://elite.polito.it/ontologies/dogont#SingleBed> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Bed> .
+
+
+###  http://elite.polito.it/ontologies/dogont#StorageRoom
+<http://elite.polito.it/ontologies/dogont#StorageRoom> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Room> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Wall
+<http://elite.polito.it/ontologies/dogont#Wall> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Construction_Element> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Wardrobe
+<http://elite.polito.it/ontologies/dogont#Wardrobe> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://elite.polito.it/ontologies/dogont#Furniture> .
+
+
+###  http://elite.polito.it/ontologies/dogont#Window
+<http://elite.polito.it/ontologies/dogont#Window> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Construction_Element> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Construction_Element
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Construction_Element> rdf:type owl:Class ;
+                                                                    rdfs:subClassOf <https://w3id.org/bot#Element> .
+
+
+###  http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Device
+<http://www.stiima.cnr.it/AgeIT-PNRR/BuiltEnv/Device> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <https://w3id.org/bot#Element> .
+
+
+###  https://w3id.org/bot#Element
+<https://w3id.org/bot#Element> rdf:type owl:Class .
+
+
+###  https://w3id.org/bot#Interface
+<https://w3id.org/bot#Interface> rdf:type owl:Class .
+
+
+###  https://w3id.org/bot#Space
+<https://w3id.org/bot#Space> rdf:type owl:Class ;
+                             rdfs:subClassOf <https://w3id.org/bot#Zone> .
+
+
+###  https://w3id.org/bot#Zone
+<https://w3id.org/bot#Zone> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

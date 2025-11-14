@@ -1,0 +1,926 @@
+@prefix : <http://www.stiima.cnr.it/Age-IT-PNRR/Health#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ageHe: <http://www.stiima.cnr.it/Age-IT-PNRR/Health/> .
+@base <http://www.stiima.cnr.it/Age-IT-PNRR/Health#> .
+
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#ICDFoundationURI
+:ICDFoundationURI rdf:type owl:AnnotationProperty .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#ICForiginalIRI
+:ICForiginalIRI rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#hasCourse
+:hasCourse rdf:type owl:ObjectProperty ;
+           rdfs:domain :ICDDesc ;
+           rdfs:range :XT1L ,
+                      :XT5R ,
+                      :XT8W .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICDCode
+:involvesICDCode rdf:type owl:ObjectProperty ;
+                 rdfs:domain :ICDDesc ;
+                 rdfs:range :ICD .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#involvesICFCode
+:involvesICFCode rdf:type owl:ObjectProperty ;
+                 rdfs:domain :ICFDesc ;
+                 rdfs:range <http://who.int/icf/Health#ICF> .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#isCharacterizedBy
+:isCharacterizedBy rdf:type owl:ObjectProperty ;
+                   rdfs:range :HCDescriptor ;
+                   rdfs:comment "Links a person's health condition to the set of descriptors describing his/her situation ina specific time" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-b-1
+:qualifier-b-1 rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :HCDescriptor ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:oneOf [ rdf:type rdf:List ;
+                                        rdf:first 0 ;
+                                        rdf:rest [ rdf:type rdf:List ;
+                                                   rdf:first 1 ;
+                                                   rdf:rest [ rdf:type rdf:List ;
+                                                              rdf:first 2 ;
+                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                         rdf:first 3 ;
+                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                    rdf:first 4 ;
+                                                                                    rdf:rest rdf:nil
+                                                                                  ]
+                                                                       ]
+                                                            ]
+                                                 ]
+                                      ]
+                          ] ;
+               rdfs:comment "This qualifier indicates the magnitude of the impairment (ranges from 0 – no impairment, to 4 – complete impairment. Allows values 8 – other specified, 9 – other not specified)" ;
+               rdfs:label "Body functions qualifier" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-d-1
+:qualifier-d-1 rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :HCDescriptor ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:oneOf [ rdf:type rdf:List ;
+                                        rdf:first 0 ;
+                                        rdf:rest [ rdf:type rdf:List ;
+                                                   rdf:first 1 ;
+                                                   rdf:rest [ rdf:type rdf:List ;
+                                                              rdf:first 2 ;
+                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                         rdf:first 3 ;
+                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                    rdf:first 4 ;
+                                                                                    rdf:rest rdf:nil
+                                                                                  ]
+                                                                       ]
+                                                            ]
+                                                 ]
+                                      ]
+                          ] ;
+               rdfs:comment "This qualifier indicates magnitude of the impairment in the performance with assistance (ranges from 0 – no impairment, to 4 – complete impairment. Allows values 8 – not specified, 9 – not applicable)" ,
+                            "“Performance w/ assistance” describes what a person does in his/her actual environment (thus, using aids and assistance)" ;
+               rdfs:label "Performance with assistance qualifier" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-e-1
+:qualifier-e-1 rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :HCDescriptor ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:unionOf ( [ rdf:type rdfs:Datatype ;
+                                            owl:oneOf [ rdf:type rdf:List ;
+                                                        rdf:first 0 ;
+                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                   rdf:first 1 ;
+                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                              rdf:first 2 ;
+                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                         rdf:first 3 ;
+                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                    rdf:first 4 ;
+                                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                                               rdf:first 8 ;
+                                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                                          rdf:first 9 ;
+                                                                                                                          rdf:rest rdf:nil
+                                                                                                                        ]
+                                                                                                             ]
+                                                                                                  ]
+                                                                                       ]
+                                                                            ]
+                                                                 ]
+                                                      ]
+                                          ]
+                                          [ rdf:type rdfs:Datatype ;
+                                            owl:oneOf [ rdf:type rdf:List ;
+                                                        rdf:first 1 ;
+                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                   rdf:first 2 ;
+                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                              rdf:first 3 ;
+                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                         rdf:first 4 ;
+                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                    rdf:first 8 ;
+                                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                                               rdf:first 9 ;
+                                                                                                               rdf:rest rdf:nil
+                                                                                                             ]
+                                                                                                  ]
+                                                                                       ]
+                                                                            ]
+                                                                 ]
+                                                      ]
+                                          ]
+                                        )
+                          ] ;
+               rdfs:comment "magnitude of barriers (or, with +, magnitude of facilitators; ranges from 0 to 4. Allows 8 – not specified, 9 – not applicable)" ;
+               rdfs:label "Environmental qualifier" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-1
+:qualifier-s-1 rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :HCDescriptor ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:oneOf [ rdf:type rdf:List ;
+                                        rdf:first 0 ;
+                                        rdf:rest [ rdf:type rdf:List ;
+                                                   rdf:first 1 ;
+                                                   rdf:rest [ rdf:type rdf:List ;
+                                                              rdf:first 2 ;
+                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                         rdf:first 3 ;
+                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                    rdf:first 4 ;
+                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                               rdf:first 5 ;
+                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                          rdf:first 6 ;
+                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                     rdf:first 7 ;
+                                                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                rdf:first 8 ;
+                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                           rdf:first 9 ;
+                                                                                                                                           rdf:rest rdf:nil
+                                                                                                                                         ]
+                                                                                                                              ]
+                                                                                                                   ]
+                                                                                                        ]
+                                                                                             ]
+                                                                                  ]
+                                                                       ]
+                                                            ]
+                                                 ]
+                                      ]
+                          ] ;
+               rdfs:comment "magnitude of the impairment (ranges from 0 – no impairment, to 4 – complete impairment. Allows values 8 – other specified, 9 – other not specified)" ;
+               rdfs:label "Body Structure qualifier for impairment magnitude" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-2
+:qualifier-s-2 rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :HCDescriptor ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:oneOf [ rdf:type rdf:List ;
+                                        rdf:first 0 ;
+                                        rdf:rest [ rdf:type rdf:List ;
+                                                   rdf:first 1 ;
+                                                   rdf:rest [ rdf:type rdf:List ;
+                                                              rdf:first 2 ;
+                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                         rdf:first 3 ;
+                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                    rdf:first 4 ;
+                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                               rdf:first 5 ;
+                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                          rdf:first 6 ;
+                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                     rdf:first 7 ;
+                                                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                rdf:first 8 ;
+                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                           rdf:first 9 ;
+                                                                                                                                           rdf:rest rdf:nil
+                                                                                                                                         ]
+                                                                                                                              ]
+                                                                                                                   ]
+                                                                                                        ]
+                                                                                             ]
+                                                                                  ]
+                                                                       ]
+                                                            ]
+                                                 ]
+                                      ]
+                          ] ;
+               rdfs:comment "nature of the impairment (ranges from 0 to 9: each number indicates a different cause of the impairment)" ;
+               rdfs:label "Nature of the structural impairment" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#qualifier-s-3
+:qualifier-s-3 rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :HCDescriptor ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:oneOf [ rdf:type rdf:List ;
+                                        rdf:first 0 ;
+                                        rdf:rest [ rdf:type rdf:List ;
+                                                   rdf:first 1 ;
+                                                   rdf:rest [ rdf:type rdf:List ;
+                                                              rdf:first 2 ;
+                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                         rdf:first 3 ;
+                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                    rdf:first 4 ;
+                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                               rdf:first 5 ;
+                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                          rdf:first 6 ;
+                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                     rdf:first 7 ;
+                                                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                rdf:first 8 ;
+                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                           rdf:first 9 ;
+                                                                                                                                           rdf:rest rdf:nil
+                                                                                                                                         ]
+                                                                                                                              ]
+                                                                                                                   ]
+                                                                                                        ]
+                                                                                             ]
+                                                                                  ]
+                                                                       ]
+                                                            ]
+                                                 ]
+                                      ]
+                          ] ;
+               rdfs:comment """localization of the impairment (ranges from 0 to 9: each number indicates a
+different location of the impairment in the body)""" ;
+               rdfs:label "Localization of the structural impairment" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://who.int/icf//Health#d470
+<http://who.int/icf//Health#d470> rdf:type owl:Class ;
+                                  rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                  :ICForiginalIRI "http://who.int/icf#d470" ;
+                                  rdfs:label "Using transportation" .
+
+
+###  http://who.int/icf/Health#ICF
+<http://who.int/icf/Health#ICF> rdf:type owl:Class ;
+                                rdfs:comment "Subset of the \"International Classification of Functioning, Disability and Health\" (ICF)" ;
+                                rdfs:label "International Classification of Functioning, Disability and Health (ICF)" ;
+                                rdfs:seeAlso "ICF website: https://icd.who.int/dev11/l-icf/en" .
+
+
+###  http://who.int/icf/Health#b
+<http://who.int/icf/Health#b> rdf:type owl:Class ;
+                              rdfs:subClassOf <http://who.int/icf/Health#ICF> ;
+                              :ICForiginalIRI "http://who.int/icf#b" ;
+                              rdfs:label "Body Functions" .
+
+
+###  http://who.int/icf/Health#b130
+<http://who.int/icf/Health#b130> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b130" ;
+                                 rdfs:label "Energy and drive functions" .
+
+
+###  http://who.int/icf/Health#b134
+<http://who.int/icf/Health#b134> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b134" ;
+                                 rdfs:label "Sleep functions" .
+
+
+###  http://who.int/icf/Health#b152
+<http://who.int/icf/Health#b152> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b152" ;
+                                 rdfs:label "Emotional functions" .
+
+
+###  http://who.int/icf/Health#b280
+<http://who.int/icf/Health#b280> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b280" ;
+                                 rdfs:label "Sensation of pain" .
+
+
+###  http://who.int/icf/Health#b410
+<http://who.int/icf/Health#b410> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b410" ;
+                                 rdfs:label "Heart functions" .
+
+
+###  http://who.int/icf/Health#b415
+<http://who.int/icf/Health#b415> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b415" ;
+                                 rdfs:label "Blood vessel functions" .
+
+
+###  http://who.int/icf/Health#b420
+<http://who.int/icf/Health#b420> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b420" ;
+                                 rdfs:label "blood pressure functions" .
+
+
+###  http://who.int/icf/Health#b440
+<http://who.int/icf/Health#b440> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b440" ;
+                                 rdfs:label "Respiratory functions" .
+
+
+###  http://who.int/icf/Health#b455
+<http://who.int/icf/Health#b455> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b455" ;
+                                 rdfs:label "Exercise tolerance functions" .
+
+
+###  http://who.int/icf/Health#b460
+<http://who.int/icf/Health#b460> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b460" ;
+                                 rdfs:label "Sensations associated with cardiovascular and respiratory functions" .
+
+
+###  http://who.int/icf/Health#b530
+<http://who.int/icf/Health#b530> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b530" ;
+                                 rdfs:label "Weight maintenance functions" .
+
+
+###  http://who.int/icf/Health#b640
+<http://who.int/icf/Health#b640> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b640" ;
+                                 rdfs:label "Sexual functions" .
+
+
+###  http://who.int/icf/Health#b730
+<http://who.int/icf/Health#b730> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b760" ;
+                                 rdfs:label "Muscle power functions" .
+
+
+###  http://who.int/icf/Health#b740
+<http://who.int/icf/Health#b740> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#b> ;
+                                 :ICForiginalIRI "http://who.int/icf#b740" ;
+                                 rdfs:label "Muscle endurance functions" .
+
+
+###  http://who.int/icf/Health#d
+<http://who.int/icf/Health#d> rdf:type owl:Class ;
+                              rdfs:subClassOf <http://who.int/icf/Health#ICF> ;
+                              :ICForiginalIRI "http://who.int/icf#d" ;
+                              rdfs:label "Activity and participation" .
+
+
+###  http://who.int/icf/Health#d230
+<http://who.int/icf/Health#d230> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d230" ;
+                                 rdfs:label "Carrying out daily routine" .
+
+
+###  http://who.int/icf/Health#d240
+<http://who.int/icf/Health#d240> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d240" ;
+                                 rdfs:label "Handling stress and other psychological demands" .
+
+
+###  http://who.int/icf/Health#d430
+<http://who.int/icf/Health#d430> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d430" ;
+                                 rdfs:label "Lifting and carrying objects" .
+
+
+###  http://who.int/icf/Health#d450
+<http://who.int/icf/Health#d450> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d450" ;
+                                 rdfs:label "Walking" .
+
+
+###  http://who.int/icf/Health#d455
+<http://who.int/icf/Health#d455> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d455" ;
+                                 rdfs:label "Moving around" .
+
+
+###  http://who.int/icf/Health#d460
+<http://who.int/icf/Health#d460> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#460" ;
+                                 rdfs:label "Moving around in different locations" .
+
+
+###  http://who.int/icf/Health#d475
+<http://who.int/icf/Health#d475> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d475" ;
+                                 rdfs:label "Driving" .
+
+
+###  http://who.int/icf/Health#d480
+<http://who.int/icf/Health#d480> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d480" ;
+                                 rdfs:label "Riding animals for transportation" .
+
+
+###  http://who.int/icf/Health#d570
+<http://who.int/icf/Health#d570> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d570" ;
+                                 rdfs:label "Looking after one’s health" .
+
+
+###  http://who.int/icf/Health#d620
+<http://who.int/icf/Health#d620> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d620" ;
+                                 rdfs:label "Acquisition of goods and services" .
+
+
+###  http://who.int/icf/Health#d630
+<http://who.int/icf/Health#d630> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d630" ;
+                                 rdfs:label "Preparing meals" .
+
+
+###  http://who.int/icf/Health#d640
+<http://who.int/icf/Health#d640> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d640" ;
+                                 rdfs:label "Doing housework" .
+
+
+###  http://who.int/icf/Health#d760
+<http://who.int/icf/Health#d760> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d760" ;
+                                 rdfs:label "Family relationships" .
+
+
+###  http://who.int/icf/Health#d770
+<http://who.int/icf/Health#d770> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d770" ;
+                                 rdfs:label "Intimate relationships" .
+
+
+###  http://who.int/icf/Health#d850
+<http://who.int/icf/Health#d850> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d850" ;
+                                 rdfs:label "Remunerative employment" .
+
+
+###  http://who.int/icf/Health#d920
+<http://who.int/icf/Health#d920> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#d> ;
+                                 :ICForiginalIRI "http://who.int/icf#d920" ;
+                                 rdfs:label "Recreation and leisure" .
+
+
+###  http://who.int/icf/Health#e
+<http://who.int/icf/Health#e> rdf:type owl:Class ;
+                              rdfs:subClassOf <http://who.int/icf/Health#ICF> ;
+                              :ICForiginalIRI "http://who.int/icf#e" ;
+                              rdfs:label "Environmental Factors" .
+
+
+###  http://who.int/icf/Health#e110
+<http://who.int/icf/Health#e110> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e110" ;
+                                 rdfs:label "Products or substances for personal consumption" .
+
+
+###  http://who.int/icf/Health#e115
+<http://who.int/icf/Health#e115> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e115" ;
+                                 rdfs:label "Products and technology for personal use in daily living" .
+
+
+###  http://who.int/icf/Health#e125
+<http://who.int/icf/Health#e125> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e125" ;
+                                 rdfs:label "Products and technology for communication" .
+
+
+###  http://who.int/icf/Health#e135
+<http://who.int/icf/Health#e135> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e135" ;
+                                 rdfs:label "Products and technology for employment" .
+
+
+###  http://who.int/icf/Health#e140
+<http://who.int/icf/Health#e140> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e140" ;
+                                 rdfs:label "Products and technology for culture, recreation and sport" .
+
+
+###  http://who.int/icf/Health#e150
+<http://who.int/icf/Health#e150> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e150" ;
+                                 rdfs:label "Design, construction and building products and technology of buildings for public use" .
+
+
+###  http://who.int/icf/Health#e155
+<http://who.int/icf/Health#e155> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e155" ;
+                                 rdfs:label "Design, construction and building products and technology of buildings for private use" .
+
+
+###  http://who.int/icf/Health#e225
+<http://who.int/icf/Health#e225> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e255" ;
+                                 rdfs:label "Climate" .
+
+
+###  http://who.int/icf/Health#e260
+<http://who.int/icf/Health#e260> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e260" ;
+                                 rdfs:label "Air quality" .
+
+
+###  http://who.int/icf/Health#e310
+<http://who.int/icf/Health#e310> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e310" ;
+                                 rdfs:label "Immediate family" .
+
+
+###  http://who.int/icf/Health#e315
+<http://who.int/icf/Health#e315> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e315" ;
+                                 rdfs:label "Extended family" .
+
+
+###  http://who.int/icf/Health#e320
+<http://who.int/icf/Health#e320> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e320" ;
+                                 rdfs:label "Friends" .
+
+
+###  http://who.int/icf/Health#e325
+<http://who.int/icf/Health#e325> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e325" ;
+                                 rdfs:label "Acquaintances, peers, colleagues, neighbours and community members" .
+
+
+###  http://who.int/icf/Health#e330
+<http://who.int/icf/Health#e330> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 rdfs:label "People in positions of authority" ,
+                                            "http://who.int/icf#e330" .
+
+
+###  http://who.int/icf/Health#e340
+<http://who.int/icf/Health#e340> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e340" ;
+                                 rdfs:label "Personal care providers and personal assistants" .
+
+
+###  http://who.int/icf/Health#e355
+<http://who.int/icf/Health#e355> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e355" ;
+                                 rdfs:label "Health professionals" .
+
+
+###  http://who.int/icf/Health#e360
+<http://who.int/icf/Health#e360> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e360" ;
+                                 rdfs:label "Health-related professionals" .
+
+
+###  http://who.int/icf/Health#e410
+<http://who.int/icf/Health#e410> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e410" ;
+                                 rdfs:label "Individual attitudes of immediate family members" .
+
+
+###  http://who.int/icf/Health#e415
+<http://who.int/icf/Health#e415> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e415" ;
+                                 rdfs:label "Individual attitudes of extended family members" .
+
+
+###  http://who.int/icf/Health#e420
+<http://who.int/icf/Health#e420> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e420" ;
+                                 rdfs:label "Individual attitudes of friends" .
+
+
+###  http://who.int/icf/Health#e425
+<http://who.int/icf/Health#e425> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e425" ;
+                                 rdfs:label "Individual attitudes of acquaintances, peers, colleagues, neighbours and community members" .
+
+
+###  http://who.int/icf/Health#e430
+<http://who.int/icf/Health#e430> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e430" ;
+                                 rdfs:label "Individual attitudes of people in positions of authority" .
+
+
+###  http://who.int/icf/Health#e440
+<http://who.int/icf/Health#e440> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e440" ;
+                                 rdfs:label "Individual attitudes of personal care providers and personal assistants" .
+
+
+###  http://who.int/icf/Health#e450
+<http://who.int/icf/Health#e450> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e450" ;
+                                 rdfs:label "Individual attitudes of health professionals" .
+
+
+###  http://who.int/icf/Health#e455
+<http://who.int/icf/Health#e455> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e455" ;
+                                 rdfs:label "Individual attitudes of health-related professionals" .
+
+
+###  http://who.int/icf/Health#e460
+<http://who.int/icf/Health#e460> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e460" ;
+                                 rdfs:label "Societal attitudes" .
+
+
+###  http://who.int/icf/Health#e570
+<http://who.int/icf/Health#e570> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e570" ;
+                                 rdfs:label "Social security services, systems and policies" .
+
+
+###  http://who.int/icf/Health#e575
+<http://who.int/icf/Health#e575> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e575" ;
+                                 rdfs:label "General social support services, systems and policies" .
+
+
+###  http://who.int/icf/Health#e580
+<http://who.int/icf/Health#e580> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e580" ;
+                                 rdfs:label "Health services, systems and policies" .
+
+
+###  http://who.int/icf/Health#e590
+<http://who.int/icf/Health#e590> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#e> ;
+                                 :ICForiginalIRI "http://who.int/icf#e590" ;
+                                 rdfs:label "Labour and employment services, systems and policies" .
+
+
+###  http://who.int/icf/Health#s
+<http://who.int/icf/Health#s> rdf:type owl:Class ;
+                              rdfs:subClassOf <http://who.int/icf/Health#ICF> ;
+                              :ICForiginalIRI "http://who.int/icf#s" ;
+                              rdfs:label "Body Structures" .
+
+
+###  http://who.int/icf/Health#s410
+<http://who.int/icf/Health#s410> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://who.int/icf/Health#s> ;
+                                 :ICForiginalIRI "http://who.int/icf#s410" ;
+                                 rdfs:label "Structure of cardiovascular system" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#BD13
+:BD13 rdf:type owl:Class ;
+      rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#11> ;
+      :ICDFoundationURI "http://id.who.int/icd/entity/1594578199" ;
+      rdfs:label "Right ventricular failure" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#GB61.0
+:GB61.0 rdf:type owl:Class ;
+        rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#16> ;
+        :ICDFoundationURI "http://id.who.int/icd/entity/933902267" ;
+        rdfs:label "Chronic kidney disease, stage 1" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#GB61.1
+:GB61.1 rdf:type owl:Class ;
+        rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#16> ;
+        :ICDFoundationURI "http://id.who.int/icd/entity/1124558660" ;
+        rdfs:label "Chronic kidney disease, stage 2" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#GB61.2
+:GB61.2 rdf:type owl:Class ;
+        rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#16> ;
+        :ICDFoundationURI "http://id.who.int/icd/entity/1416760208" ;
+        rdfs:label "Chronic kidney disease, stage 3a" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#GB61.3
+:GB61.3 rdf:type owl:Class ;
+        rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#16> ;
+        :ICDFoundationURI "http://id.who.int/icd/entity/671059308" ;
+        rdfs:label "Chronic kidney disease, stage 3b" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#GB61.4
+:GB61.4 rdf:type owl:Class ;
+        rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#16> ;
+        :ICDFoundationURI "http://id.who.int/icd/entity/1436694854" ;
+        rdfs:label "Chronic kidney disease, stage 4" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#GB61.5
+:GB61.5 rdf:type owl:Class ;
+        rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#16> ;
+        :ICDFoundationURI "http://id.who.int/icd/entity/820638928" ;
+        rdfs:label "Chronic kidney disease, stage 5" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#HCDescriptor
+:HCDescriptor rdf:type owl:Class ;
+              rdfs:comment "Health Condition descriptors" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#ICD
+:ICD rdf:type owl:Class ;
+     rdfs:comment "Subset of the \"International Classification of Diseases\" (ICD-11)" ;
+     rdfs:label "International Classification of Diseases (11th version)" ;
+     rdfs:seeAlso "ICD-11 website: https://icd.who.int/en" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#ICDDesc
+:ICDDesc rdf:type owl:Class ;
+         rdfs:subClassOf :HCDescriptor .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#ICFDesc
+:ICFDesc rdf:type owl:Class ;
+         rdfs:subClassOf :HCDescriptor .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#MD11
+:MD11 rdf:type owl:Class ;
+      rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#21> ;
+      :ICDFoundationURI "http://id.who.int/icd/entity/208980208" ;
+      rdfs:label "Abnormalities of breathing" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#MD11.5
+:MD11.5 rdf:type owl:Class ;
+        rdfs:subClassOf :MD11 ;
+        :ICDFoundationURI "http://id.who.int/icd/entity/960305085" ;
+        rdfs:label "Dyspnoea" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#MG2A
+:MG2A rdf:type owl:Class ;
+      rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#21> ;
+      :ICDFoundationURI "http://id.who.int/icd/entity/835503193" ;
+      rdfs:label "Ageing associated decline in intrinsic capacity" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#X
+:X rdf:type owl:Class ;
+   rdfs:subClassOf :ICD ;
+   :ICDFoundationURI "http://id.who.int/icd/entity/979408586" ;
+   rdfs:label "Extension Codes" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#XT1L
+:XT1L rdf:type owl:Class ;
+      rdfs:subClassOf :X ;
+      :ICDFoundationURI "Subacute" ,
+                        "http://id.who.int/icd/entity/2058324694" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#XT5R
+:XT5R rdf:type owl:Class ;
+      rdfs:subClassOf :X ;
+      :ICDFoundationURI "http://id.who.int/icd/entity/786106375" ;
+      rdfs:label "Acute" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#XT8W
+:XT8W rdf:type owl:Class ;
+      rdfs:subClassOf :X ;
+      :ICDFoundationURI "http://id.who.int/icd/entity/490003542" ;
+      rdfs:label "Chronic" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#07
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health#07> rdf:type owl:Class ;
+                                                 rdfs:subClassOf :ICD ;
+                                                 :ICDFoundationURI "http://id.who.int/icd/entity/274880002" ;
+                                                 rdfs:label "Sleep-wake disorders" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#11
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health#11> rdf:type owl:Class ;
+                                                 rdfs:subClassOf :ICD ;
+                                                 :ICDFoundationURI "http://id.who.int/icd/entity/426429380" ;
+                                                 rdfs:label "Diseases of the circulatory system" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#16
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health#16> rdf:type owl:Class ;
+                                                 rdfs:subClassOf :ICD ;
+                                                 :ICDFoundationURI "http://id.who.int/icd/entity/412389819" ;
+                                                 rdfs:label "Chronic kidney disease" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#21
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health#21> rdf:type owl:Class ;
+                                                 rdfs:subClassOf :ICD ;
+                                                 :ICDFoundationURI "http://id.who.int/icd/entity/1843895818" ;
+                                                 rdfs:label "Symptoms, signs or clinical findings, not elsewhere classified" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#7A40
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health#7A40> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#07> ;
+                                                   :ICDFoundationURI "http://id.who.int/icd/entity/1193320862" ;
+                                                   rdfs:label "Central sleep apnoeas" .
+
+
+###  http://www.stiima.cnr.it/Age-IT-PNRR/Health#7A40.0
+<http://www.stiima.cnr.it/Age-IT-PNRR/Health#7A40.0> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.stiima.cnr.it/Age-IT-PNRR/Health#7A40> ;
+                                                     :ICDFoundationURI "http://id.who.int/icd/entity/941326977" ;
+                                                     rdfs:label "Primary central sleep apnoea" .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
